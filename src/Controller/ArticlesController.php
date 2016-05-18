@@ -1,6 +1,7 @@
 <?php 
   namespace App\Controller;
   use App\Controller\AppController;
+  use Cake\Validation\Validator;
   /**
   * 
   */
@@ -28,6 +29,7 @@
     public function add()
     {
       # code...
+
       $article = $this->Articles->newEntity();
       // echo $article;
       if ($this->request->is('post')) {
@@ -40,7 +42,7 @@
         }else{
           $this->Flash->error(__('Unable to add your article.'));
         };
-        $this->set('article',$article);
+        // $this->set('article',$article);
       }
     }
 
@@ -72,6 +74,35 @@
         return $this->redirect(['action'=>'index']);
       }
     }
-  }
+
+    public function quote()
+    {
+      // if ($this->request->is('ajax')) {
+      //   die(print_r(['mes'=>'it is ajax!']));
+      // }else if ($this->request->is('post')) {
+      //   # code...
+      //    die(print_r(['mes'=>'it is post!']));
+      // }
+      // die(print_r($this->request()));
+        $this->autoRender = false; 
+          $url='https://thirdparty.mortech-inc.com/mpg/servlet/mpgThirdPartyServlet?request_id=1&customerId=15mweq01&thirdPartyName=MidwestEquity&licenseKey=buDrU4ra&emailAddress=dave@midwestequity.com&loanProduct1=30%20year%20fixed&loanProduct2=15%20year%20fixed&loanProduct3=5%20year%20ARM/30%20yrs&propertyState=CA&appraisedvalue=500000&ltv=80&propertyCounty=Alameda&loan_amount=400000&targetPrice=-999&loanProduct4=7%20year%20ARM/30%20yrs&loanProduct5=10%20year%20ARM/30%20yrs';
+          $data = json_encode(simplexml_load_file(($url)));
+          $this->response->body($data);
+          // die(print_r($array));
+    
+    }
+    public function formV()
+    {
+      # code...
+      $name =$this->request->data('name');
+      echo  $name;
+      if (empty($name)) {
+        # code...
+        $this->Flash->error(__('no name'));
+        // $this->autoRender = false; 
+       $this->redirect('/articles/add');
+      };
+    }
+}
 
 ?>

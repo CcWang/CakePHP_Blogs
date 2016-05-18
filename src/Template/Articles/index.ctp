@@ -17,4 +17,4 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-<button><?= $this->Html->link('Add Article', ['action' => 'add']) ?></button>
+<button><?= $this->Html->link('Add Article', ['controller'=>'articles','action' => 'add']) ?></button>
